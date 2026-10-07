@@ -18,7 +18,6 @@
 
   # Broadcom WiFi (MacBook Pro 13" 2012 usa BCM4331)
   hardware.enableRedistributableFirmware = true;
-  boot.kernelModules = [ "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" ];
 
@@ -35,6 +34,13 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  # ── Bluetooth ─────────────────────────────────────────────────────────────
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # ── Camara (FaceTime HD - uvcvideo) ───────────────────────────────────────
+  boot.kernelModules = [ "wl" "uvcvideo" ];
 
   # ── Audio ─────────────────────────────────────────────────────────────────
   services.pipewire = {
