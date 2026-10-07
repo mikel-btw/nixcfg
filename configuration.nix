@@ -40,7 +40,7 @@
   services.blueman.enable = true;
 
   # ── Camara (FaceTime HD - uvcvideo) ───────────────────────────────────────
-  boot.kernelModules = [ "wl" "uvcvideo" ];
+  boot.kernelModules = [ "wl" "uvcvideo" "apple_gmux" ];
 
   # ── Audio ─────────────────────────────────────────────────────────────────
   services.pipewire = {
