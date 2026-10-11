@@ -5,6 +5,10 @@
     ./hardware-configuration.nix
   ];
 
+  # ── ZRAM ──────────────────────────────────────────────────────────────────
+  zramSwap.enable = true;
+  zramSwap.memoryPercent = 50; # 8GB de tus 16GB
+
   # ── Bootloader ────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
