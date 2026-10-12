@@ -41,8 +41,8 @@
   # ── Git ───────────────────────────────────────────────────────────────────
   programs.git = {
     enable = true;
-    userName = "mikel";
-    userEmail = "angeloso74@hotmail.com";
+    settings.user.name = "mikel";
+    settings.user.email = "angeloso74@hotmail.com";
   };
 
   # ── Home-manager se gestiona a si mismo ───────────────────────────────────

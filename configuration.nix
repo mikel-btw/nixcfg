@@ -75,6 +75,7 @@
 
   # Permite paquetes con licencias no libres (necesario para broadcom_sta, vscode, arduino)
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "broadcom-sta-6.30.223.271-63-6.12.112" ];
 
   # ── Nix ───────────────────────────────────────────────────────────────────
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
