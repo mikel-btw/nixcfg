@@ -7,6 +7,9 @@
 
   # ── Paquetes de usuario ───────────────────────────────────────────────────
   home.packages = with pkgs; [
+    appimage-run
+
+
     # Navegadores
     librewolf
     tor-browser
@@ -35,6 +38,7 @@
       font_size = "12.0";
       scrollback_lines = 10000;
       enable_audio_bell = false;
+      background_opacity = 0.7;	
     };
   };
 

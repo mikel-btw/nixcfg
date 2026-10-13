@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+     ./hardware-configuration.nix
+     ./fan5500.nix
   ];
 
   # ── ZRAM ──────────────────────────────────────────────────────────────────
@@ -26,8 +27,8 @@
   boot.blacklistedKernelModules = [ "b43" "bcma" "ssb" "brcmsmac" ];
 
   # ── Localización ──────────────────────────────────────────────────────────
-  time.timeZone = "Europe/Madrid"; # ajusta si es necesario
-  i18n.defaultLocale = "es_ES.UTF-8";
+  time.timeZone = "America/Bogota";
+  i18n.defaultLocale = "es_CO.UTF-8";
   console.keyMap = "es";
 
   # ── Gráficos - Intel HD 4000 ──────────────────────────────────────────────
