@@ -7,8 +7,9 @@
 
   # ── Paquetes de usuario ───────────────────────────────────────────────────
   home.packages = with pkgs; [
+    #Paquetes cualquiera
     appimage-run
-
+    fastfetch
 
     # Navegadores
     librewolf
@@ -23,12 +24,16 @@
     jdk25
     python3
     arduino
+    netbeans
 
     # Multimedia
     vlc
 
     # Ofimática
     libreoffice
+
+    # Virtualización
+    virtualbox
   ];
 
   # ── Kitty ─────────────────────────────────────────────────────────────────

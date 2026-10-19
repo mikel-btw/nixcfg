@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -55,6 +55,31 @@
     pulse.enable = true;
   };
 
+  # ── Podman ────────────────────────────────────────────────────────────────
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = false;
+    dockerSocket.enable = true;
+  };
+  virtualisation.containers.registries.search = [ "docker.io" "quay.io" ];
+
+  # ── Virtualbox ────────────────────────────────────────────────────────────
+
+  virtualisation.virtualbox.host.enable = true;
+    users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
+
+  # ── Tailscale ─────────────────────────────────────────────────────────────
+
+  services.tailscale = {
+    # Enable tailscale at startup
+    enable = true;
+
+    # If you would like to use a preauthorized key, set
+    # authKeyFile = "/run/secrets/tailscale_key";
+    # Note: maximum expire time is 90 days
+  };
+
+
   # ── Usuario ───────────────────────────────────────────────────────────────
   users.users.mikel = {
     hashedPassword = "$y$j9T$mYiOYCciCxYTAeVRx2O9Z0$nZUAbQxiut5AT8bep0ggvLHfKX6cxCuEQO3rfwC/aj7";
@@ -70,6 +95,7 @@
     git
     wget
     curl
+    podman-compose
   ];
 
   # ── Programas ─────────────────────────────────────────────────────────────
