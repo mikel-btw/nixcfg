@@ -4,6 +4,7 @@
   imports = [
      ./hardware-configuration.nix
      ./fan5500.nix
+     ./podman-containers.nix
   ];
 
   # ── ZRAM ──────────────────────────────────────────────────────────────────
@@ -96,6 +97,7 @@
     wget
     curl
     podman-compose
+    ollama
   ];
 
   # ── Programas ─────────────────────────────────────────────────────────────
