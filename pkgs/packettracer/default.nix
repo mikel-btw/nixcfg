@@ -2,7 +2,6 @@
 , lib
 , dpkg
 , appimageTools
-, makeWrapper
 , qt6
 , stdenvNoCC
 }:
@@ -12,7 +11,6 @@ let
   version = "9.0.1";
   src = ./CiscoPacketTracer_901_Ubuntu_64bit.deb;
 
-  # Extraemos temporalmente el AppImage del .deb usando un derivation auxiliar o dpkg
   unpackedDeb = stdenvNoCC.mkDerivation {
     name = "${pname}-unpacked-${version}";
     inherit src;
@@ -24,12 +22,16 @@ let
 
   appimageFile = "${unpackedDeb}/opt/pt/packettracer.AppImage";
 
+  # Extraemos el contenido del AppImage para obtener el archivo .desktop e iconos
+  extractedAppImage = appimageTools.extract {
+    inherit pname version;
+    src = appimageFile;
+  };
+
 in appimageTools.wrapType2 {
   inherit pname version;
   src = appimageFile;
 
-  # Si Packet Tracer 9 requiere dependencias adicionales de Qt6 o gráficas, 
-  # appimageTools se encarga de inyectarlas en el entorno de ejecución.
   extraPkgs = pkgs: with pkgs; [
     qt6.qtbase
     qt6.qtsvg
@@ -50,6 +52,25 @@ in appimageTools.wrapType2 {
     xorg.libXdamage
     xorg.libXtst
   ];
+
+  extraInstallCommands = ''
+    # 1. Crear el enlace simbólico para que el comando 'packettracer' funcione en terminal
+    ln -s $out/bin/${pname} $out/bin/packettracer
+
+    # 2. Copiar el archivo .desktop e icono para que aparezca en el menú del sistema
+    mkdir -p $out/share/applications $out/share/icons/hicolor/512x512/apps
+    
+    if [ -f ${extractedAppImage}/cisco-pt.desktop ]; then
+      cp ${extractedAppImage}/cisco-pt.desktop $out/share/applications/cisco-packet-tracer.desktop
+    elif [ -f ${extractedAppImage}/*.desktop ]; then
+      cp ${extractedAppImage}/*.desktop $out/share/applications/cisco-packet-tracer.desktop
+    fi
+
+    # 3. Ajustar la línea Exec del .desktop para que apunte a nuestro ejecutable
+    substituteInPlace $out/share/applications/cisco-packet-tracer.desktop \
+      --replace-quiet "Exec=PacketTracer" "Exec=packettracer" \
+      --replace-quiet "Exec=packettracer" "Exec=packettracer"
+  '';
 
   meta = with lib; {
     description = "Cisco Packet Tracer simulation tool (AppImage version)";
