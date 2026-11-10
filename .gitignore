@@ -1,2 +1,4 @@
-result
-result-*
+pkgs/packettracer/*
+!pkgs/packettracer/default.nix
+!pkgs/packettracer/*.deb
+pkgs/packettracer/*.deb

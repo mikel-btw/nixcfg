@@ -31,9 +31,6 @@
 
     # Ofimática
     libreoffice
-
-    # Virtualización
-    virtualbox
   ];
 
   # ── Kitty ─────────────────────────────────────────────────────────────────

@@ -67,7 +67,6 @@
   # ── Virtualbox ────────────────────────────────────────────────────────────
 
   virtualisation.virtualbox.host.enable = true;
-    users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 
   # ── Tailscale ─────────────────────────────────────────────────────────────
 
@@ -86,18 +85,20 @@
     hashedPassword = "$y$j9T$mYiOYCciCxYTAeVRx2O9Z0$nZUAbQxiut5AT8bep0ggvLHfKX6cxCuEQO3rfwC/aj7";
     isNormalUser = true;
     description = "Mikel";
-    extraGroups = [ "wheel" "networkmanager" "dialout" ]; # dialout para Arduino
+    extraGroups = [ "wheel" "networkmanager" "dialout" "vboxusers" ];
     shell = pkgs.bash;
   };
 
   # ── Paquetes del sistema ───────────────────────────────────────────────────
   # Los paquetes de usuario van en home.nix
   environment.systemPackages = with pkgs; [
+    (pkgs.callPackage ./pkgs/packettracer { })
     git
     wget
     curl
     podman-compose
     ollama
+    opencode
   ];
 
   # ── Programas ─────────────────────────────────────────────────────────────
